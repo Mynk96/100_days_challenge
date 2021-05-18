@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "340248288734",
+    "project_id": "hundreddays-a7663",
+    "storage_bucket": "hundreddays-a7663.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340248288734:android:df63962f10be462e5e914f",
+        "android_client_info": {
+          "package_name": "com.goprotoz.hundreddays"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340248288734-vlrq5f6egj2p8s5to7l001oqs94bvem7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goprotoz.hundreddays",
+            "certificate_hash": "8e84dedbdb7c73c4b4035593d6271bb91e363452"
+          }
+        },
+        {
+          "client_id": "340248288734-o5udj5drl9st03ksedoq0im69tvn1a2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC91aPJIDLnMbEJZJr-4xnpRq1h2opMnUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340248288734-o5udj5drl9st03ksedoq0im69tvn1a2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
