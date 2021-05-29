@@ -7,7 +7,7 @@ import 'package:hundred_days/model/usermodel.dart';
 
 class UserRepository {
 
-  final CollectionReference userDbs = FirebaseFirestore.instance.collection('users');
+  final CollectionReference userDb = FirebaseFirestore.instance.collection('users');
   UserRepository.instance()
       : _auth = FirebaseAuth.instance,
         _googleSignIn = GoogleSignIn(scopes: ['email']) {
@@ -19,8 +19,9 @@ class UserRepository {
 
   Future<bool> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount googleUser = await (_googleSignIn.signIn() as FutureOr<GoogleSignInAccount>);
-      final GoogleSignInAuthentication googleAuth =
+      final GoogleSignInAccount? googleUser = await (_googleSignIn.signIn());
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       final GoogleAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -28,6 +29,8 @@ class UserRepository {
       ) as GoogleAuthCredential;
       await _auth.signInWithCredential(credential);
       return true;
+      }
+      return false;
     } catch (e) {
       return false;
     }
@@ -43,38 +46,47 @@ class UserRepository {
     return Future.delayed(Duration.zero);
   }
 
-  Future<void> saveUserRecord(String uid, UserModel? user) async {
-    try {
-      if (user == null) return;
-    DocumentSnapshot doc = await userDbs.doc(uid).get();
-    if (doc.data() == null) {
-      userDbs.doc(uid).set({
-        'email': user.email,
-        'name': user.name,
-        'uid': uid
-      });
+  Future<bool> isUserAlreadyPresent(String uid) async {
+    DocumentSnapshot d = await userDb.doc(uid).get();
+    if (d.data() != null) {
+      return true;
     }
-    } catch (e, message) {
-      print(message);
-    }
+    return false;
   }
 
-  Future<void> saveSubmission(String? uid, int? challengeId, String submissionUrl) async {
-    try {
-      await userDbs.doc(uid).collection('submissions').doc(challengeId.toString()).set({
-      'submissionUrl': submissionUrl,
-      'challengeId':challengeId
+  void subscribeToUserChanges(String uid, Function callback) async {
+    userDb.doc(uid).snapshots().listen((event) {
+      callback(event);
     });
-    } catch (e) {
-      throw e;
-    }
   }
 
-  Future<QuerySnapshot> getAllSubmissions(String? uid) async {
-    try {
-      return await userDbs.doc(uid).collection('submissions').get();
-    } catch (e) {
-      throw e;
+  Future<void> updateUserDetails(String uid, Map<String, dynamic> data) async {
+    Map<String, dynamic> dataToUpdate = _getUserUpdateMap(data);
+    await userDb.doc(uid).update(dataToUpdate);
+  }
+
+  Future<void> setUserDetails(String uid, Map<String, dynamic> data) async {
+    Map<String, dynamic> dataToUpdate = _getUserUpdateMap(data);
+    await userDb.doc(uid).set(dataToUpdate);
+  }
+
+  Future<DocumentSnapshot<Object?>> getUserDetails(String uid) async {
+    return userDb.doc(uid).get();
+  } 
+
+  Map<String, dynamic> _getUserUpdateMap(Map<String, dynamic> data) {
+    Map<String, dynamic> dataToUpdate = new Map<String, dynamic>();
+    if (data.containsKey('submissionId')) {
+      dataToUpdate['submissionIds'] = FieldValue.arrayUnion(List.filled(1, data['submissionId']));
     }
+    if (data.containsKey('challengeId')) {
+      dataToUpdate['participatedChallenges'] = FieldValue.arrayUnion(List.filled(1, data['challengeId']));
+    }
+    data.remove('submissionId');
+    data.remove('challengeId');
+    data.keys.forEach((element) {
+      dataToUpdate[element] = data[element];
+    });
+    return dataToUpdate;
   }
 }

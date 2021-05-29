@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hundred_days/ui/challenge_list.dart';
+import 'package:hundred_days/ui/daily_challenge_view.dart';
 import 'package:hundred_days/ui/home.dart';
 import 'package:hundred_days/ui/scaffold_challenge_view.dart';
 
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => MyHomePage(),
-        'challenge': (context) => ScaffoldChallengeView()
+        'challenge': (context) => ScaffoldChallengeView(),
+        'challengelist': (context) => ChallengesList(),
       },
     );
   }

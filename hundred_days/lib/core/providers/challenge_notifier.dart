@@ -3,50 +3,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hundred_days/core/repository/challenge_repository.dart';
 import 'package:hundred_days/model/challenge.dart';
 
-abstract class ChallengeState {
-
-}
-
-class ChallengeLoaded extends ChallengeState {
-  final List<Challenge> challenges;
-
-  ChallengeLoaded(this.challenges);
-
-  Challenge getTodayChallenge() {
-    return challenges.singleWhere((element) => element.dateOfChallenge!.toDate().toUtc().day == DateTime.now().toUtc().day, orElse: () {
-      return challenges[challenges.length-1];
-    });
-  }
-
-  Challenge getChallengeById(int? challengeId) {
-    return challenges.singleWhere((element) => element.id == challengeId, orElse: () {
-      return challenges[challenges.length-1];
-    });
-  }
-}
-
-class ChallengeException extends ChallengeState {
-
-}
-
-class ChallengesLoading extends ChallengeState {
-
-}
-
-class ChallengeNotifier extends StateNotifier<ChallengeState> {
+class ChallengeNotifier extends StateNotifier<Challenges> {
   final ChallengeRepository _challengeRepository;
-  ChallengeNotifier(this._challengeRepository) :super(ChallengesLoading()) {
-    getChallenges();
-  }
+  ChallengeNotifier(this._challengeRepository) : super(ChallengesLoading()) {}
 
-  Future<void> getChallenges() async {
-    state = ChallengesLoading();
-    List<QueryDocumentSnapshot<Object?>> data = await _challengeRepository.getChallenges();;
-    List<Challenge> challenges = List.empty(growable: true);
-    data.forEach((e) {
-      challenges.add(Challenge.fromJson(e.data() as Map<String, dynamic>));
-    });
-    challenges.sort((a, b) => a.dateOfChallenge!.compareTo(b.dateOfChallenge!));
-    state = ChallengeLoaded(challenges);
+  Future<void> getChallenges(List<String> challengeIds) async {
+    try {
+      state = ChallengesLoading();
+      List<QueryDocumentSnapshot<Object?>> data =
+          await _challengeRepository.getChallenges(challengeIds);
+      List<Challenge> challenges = List.empty(growable: true);
+      data.forEach((e) {
+        challenges.add(Challenge.fromJson(e.data() as Map<String, dynamic>));
+      });
+      challenges.sort((a, b) => a.id.compareTo(b.id));
+      state = Challenges.data(challenges);
+    } catch (e, st) {
+      state = ChallengesError(e, st);
+    }
   }
 }

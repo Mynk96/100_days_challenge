@@ -1,28 +1,38 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hundred_days/core/repository/challenge_repository.dart';
+import 'package:hundred_days/core/repository/submission_repository.dart';
 import 'package:hundred_days/core/repository/user_repository.dart';
-import 'package:hundred_days/model/submission.dart';
+import 'package:hundred_days/model/file_upload_param.dart';
+import 'package:hundred_days/model/file_upload_status.dart';
 
-class SubmissionNotifier {
-  static Future<List<Submission>> saveSubmissionAndGet(String? uid, int? challengeId, String submissionUrl, UserRepository _userRepository) async {
+class SubmissionNotifier extends StateNotifier<FileUploadStatus> {
+  final SubmissionRepository _submissionRepository;
+  final UserRepository _userRepository;
+  final ChallengeRepository _challengeRepository;
+  SubmissionNotifier(this._userRepository, this._challengeRepository, this._submissionRepository) : super(FileUploadStatus.INITIAL);
+
+  Future submit(FileUploadParameter params) async {
+    String imageName = params.challengeId.toString() + '_' + params.email;
+    state = FileUploadStatus.UPLOADING;
     try {
-      await _userRepository.saveSubmission(uid, challengeId, submissionUrl);
-    } catch (e) {
-
-    }
-    return getSubmissions(_userRepository, uid);
-  }
-
-  static Future<List<Submission>> getSubmissions(UserRepository _userRepository, String? uid) async {
-    List<Submission> subms = List.empty(growable:true);
-    try {
-      QuerySnapshot q = await _userRepository.getAllSubmissions(uid);
-      q.docs.forEach((element) {
-        subms.add(Submission.fromJson(element.data() as Map<String, dynamic>));
-      });
+      String url = await _submissionRepository.uploadFile(imageName, params.image);
+      String submId = await _submissionRepository.saveSubmission(params.uid, params.challengeId, url, params.isPublic, params.name, params.challengeName);
+      Map<String, dynamic> userDetailsToUpdate = {
+        'submissionId': submId,
+        'challengeId': params.challengeId,
+        'laddersState.${params.ladderInfo.ladderId}': params.ladderInfo.toJson()
+      };
+      Map<String, dynamic> challengeDetailsToUpdate = {
+        'submissionId': submId
+      };
+      
+      await _userRepository.updateUserDetails(params.uid, userDetailsToUpdate);
+      await _challengeRepository.updateChallengeDetails(params.challengeId, challengeDetailsToUpdate);
+      state = FileUploadStatus.UPLOADED;
     } catch (e, trace) {
-      print(trace.toString());
+      state = FileUploadStatus.ERROR;
     }
-    return subms;
   }
 }

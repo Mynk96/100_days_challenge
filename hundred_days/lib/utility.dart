@@ -1,8 +1,3 @@
-class Utility {
-  static dynamic getValue(Map<String, dynamic> data, String key, dynamic defaultValue) {
-    if (data.containsKey(key)) {
-      return data[key];
-    }
-    return defaultValue;
-  }
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
+  Timestamp fromJson(Timestamp? json) => json!;
+  String toJson(Timestamp? object) => object!.millisecondsSinceEpoch.toString();

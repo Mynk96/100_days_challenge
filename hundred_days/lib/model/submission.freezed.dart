@@ -20,10 +20,27 @@ Submission _$SubmissionFromJson(Map<String, dynamic> json) {
 class _$SubmissionTearOff {
   const _$SubmissionTearOff();
 
-  _Submission call({String? url, int? challengeId}) {
+  _Submission call(
+      {required String id,
+      required String challengeId,
+      required bool isPublic,
+      required String submittedById,
+      required String submittedByName,
+      required String challengeName,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson)
+          required Timestamp submittedAt,
+      required String url,
+      required List<String> likedBy}) {
     return _Submission(
-      url: url,
+      id: id,
       challengeId: challengeId,
+      isPublic: isPublic,
+      submittedById: submittedById,
+      submittedByName: submittedByName,
+      challengeName: challengeName,
+      submittedAt: submittedAt,
+      url: url,
+      likedBy: likedBy,
     );
   }
 
@@ -37,8 +54,16 @@ const $Submission = _$SubmissionTearOff();
 
 /// @nodoc
 mixin _$Submission {
-  String? get url => throw _privateConstructorUsedError;
-  int? get challengeId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get challengeId => throw _privateConstructorUsedError;
+  bool get isPublic => throw _privateConstructorUsedError;
+  String get submittedById => throw _privateConstructorUsedError;
+  String get submittedByName => throw _privateConstructorUsedError;
+  String get challengeName => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _fromJson, toJson: _toJson)
+  Timestamp get submittedAt => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  List<String> get likedBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +76,16 @@ abstract class $SubmissionCopyWith<$Res> {
   factory $SubmissionCopyWith(
           Submission value, $Res Function(Submission) then) =
       _$SubmissionCopyWithImpl<$Res>;
-  $Res call({String? url, int? challengeId});
+  $Res call(
+      {String id,
+      String challengeId,
+      bool isPublic,
+      String submittedById,
+      String submittedByName,
+      String challengeName,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) Timestamp submittedAt,
+      String url,
+      List<String> likedBy});
 }
 
 /// @nodoc
@@ -64,18 +98,53 @@ class _$SubmissionCopyWithImpl<$Res> implements $SubmissionCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? url = freezed,
+    Object? id = freezed,
     Object? challengeId = freezed,
+    Object? isPublic = freezed,
+    Object? submittedById = freezed,
+    Object? submittedByName = freezed,
+    Object? challengeName = freezed,
+    Object? submittedAt = freezed,
+    Object? url = freezed,
+    Object? likedBy = freezed,
   }) {
     return _then(_value.copyWith(
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       challengeId: challengeId == freezed
           ? _value.challengeId
           : challengeId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
+      isPublic: isPublic == freezed
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      submittedById: submittedById == freezed
+          ? _value.submittedById
+          : submittedById // ignore: cast_nullable_to_non_nullable
+              as String,
+      submittedByName: submittedByName == freezed
+          ? _value.submittedByName
+          : submittedByName // ignore: cast_nullable_to_non_nullable
+              as String,
+      challengeName: challengeName == freezed
+          ? _value.challengeName
+          : challengeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      submittedAt: submittedAt == freezed
+          ? _value.submittedAt
+          : submittedAt // ignore: cast_nullable_to_non_nullable
+              as Timestamp,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      likedBy: likedBy == freezed
+          ? _value.likedBy
+          : likedBy // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -86,7 +155,16 @@ abstract class _$SubmissionCopyWith<$Res> implements $SubmissionCopyWith<$Res> {
           _Submission value, $Res Function(_Submission) then) =
       __$SubmissionCopyWithImpl<$Res>;
   @override
-  $Res call({String? url, int? challengeId});
+  $Res call(
+      {String id,
+      String challengeId,
+      bool isPublic,
+      String submittedById,
+      String submittedByName,
+      String challengeName,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) Timestamp submittedAt,
+      String url,
+      List<String> likedBy});
 }
 
 /// @nodoc
@@ -101,18 +179,53 @@ class __$SubmissionCopyWithImpl<$Res> extends _$SubmissionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? url = freezed,
+    Object? id = freezed,
     Object? challengeId = freezed,
+    Object? isPublic = freezed,
+    Object? submittedById = freezed,
+    Object? submittedByName = freezed,
+    Object? challengeName = freezed,
+    Object? submittedAt = freezed,
+    Object? url = freezed,
+    Object? likedBy = freezed,
   }) {
     return _then(_Submission(
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       challengeId: challengeId == freezed
           ? _value.challengeId
           : challengeId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
+      isPublic: isPublic == freezed
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      submittedById: submittedById == freezed
+          ? _value.submittedById
+          : submittedById // ignore: cast_nullable_to_non_nullable
+              as String,
+      submittedByName: submittedByName == freezed
+          ? _value.submittedByName
+          : submittedByName // ignore: cast_nullable_to_non_nullable
+              as String,
+      challengeName: challengeName == freezed
+          ? _value.challengeName
+          : challengeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      submittedAt: submittedAt == freezed
+          ? _value.submittedAt
+          : submittedAt // ignore: cast_nullable_to_non_nullable
+              as Timestamp,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      likedBy: likedBy == freezed
+          ? _value.likedBy
+          : likedBy // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -120,37 +233,87 @@ class __$SubmissionCopyWithImpl<$Res> extends _$SubmissionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Submission implements _Submission {
-  const _$_Submission({this.url, this.challengeId});
+  const _$_Submission(
+      {required this.id,
+      required this.challengeId,
+      required this.isPublic,
+      required this.submittedById,
+      required this.submittedByName,
+      required this.challengeName,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson) required this.submittedAt,
+      required this.url,
+      required this.likedBy});
 
   factory _$_Submission.fromJson(Map<String, dynamic> json) =>
       _$_$_SubmissionFromJson(json);
 
   @override
-  final String? url;
+  final String id;
   @override
-  final int? challengeId;
+  final String challengeId;
+  @override
+  final bool isPublic;
+  @override
+  final String submittedById;
+  @override
+  final String submittedByName;
+  @override
+  final String challengeName;
+  @override
+  @JsonKey(fromJson: _fromJson, toJson: _toJson)
+  final Timestamp submittedAt;
+  @override
+  final String url;
+  @override
+  final List<String> likedBy;
 
   @override
   String toString() {
-    return 'Submission(url: $url, challengeId: $challengeId)';
+    return 'Submission(id: $id, challengeId: $challengeId, isPublic: $isPublic, submittedById: $submittedById, submittedByName: $submittedByName, challengeName: $challengeName, submittedAt: $submittedAt, url: $url, likedBy: $likedBy)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Submission &&
-            (identical(other.url, url) ||
-                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.challengeId, challengeId) ||
                 const DeepCollectionEquality()
-                    .equals(other.challengeId, challengeId)));
+                    .equals(other.challengeId, challengeId)) &&
+            (identical(other.isPublic, isPublic) ||
+                const DeepCollectionEquality()
+                    .equals(other.isPublic, isPublic)) &&
+            (identical(other.submittedById, submittedById) ||
+                const DeepCollectionEquality()
+                    .equals(other.submittedById, submittedById)) &&
+            (identical(other.submittedByName, submittedByName) ||
+                const DeepCollectionEquality()
+                    .equals(other.submittedByName, submittedByName)) &&
+            (identical(other.challengeName, challengeName) ||
+                const DeepCollectionEquality()
+                    .equals(other.challengeName, challengeName)) &&
+            (identical(other.submittedAt, submittedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.submittedAt, submittedAt)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.likedBy, likedBy) ||
+                const DeepCollectionEquality().equals(other.likedBy, likedBy)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(challengeId) ^
+      const DeepCollectionEquality().hash(isPublic) ^
+      const DeepCollectionEquality().hash(submittedById) ^
+      const DeepCollectionEquality().hash(submittedByName) ^
+      const DeepCollectionEquality().hash(challengeName) ^
+      const DeepCollectionEquality().hash(submittedAt) ^
       const DeepCollectionEquality().hash(url) ^
-      const DeepCollectionEquality().hash(challengeId);
+      const DeepCollectionEquality().hash(likedBy);
 
   @JsonKey(ignore: true)
   @override
@@ -164,15 +327,40 @@ class _$_Submission implements _Submission {
 }
 
 abstract class _Submission implements Submission {
-  const factory _Submission({String? url, int? challengeId}) = _$_Submission;
+  const factory _Submission(
+      {required String id,
+      required String challengeId,
+      required bool isPublic,
+      required String submittedById,
+      required String submittedByName,
+      required String challengeName,
+      @JsonKey(fromJson: _fromJson, toJson: _toJson)
+          required Timestamp submittedAt,
+      required String url,
+      required List<String> likedBy}) = _$_Submission;
 
   factory _Submission.fromJson(Map<String, dynamic> json) =
       _$_Submission.fromJson;
 
   @override
-  String? get url => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
-  int? get challengeId => throw _privateConstructorUsedError;
+  String get challengeId => throw _privateConstructorUsedError;
+  @override
+  bool get isPublic => throw _privateConstructorUsedError;
+  @override
+  String get submittedById => throw _privateConstructorUsedError;
+  @override
+  String get submittedByName => throw _privateConstructorUsedError;
+  @override
+  String get challengeName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(fromJson: _fromJson, toJson: _toJson)
+  Timestamp get submittedAt => throw _privateConstructorUsedError;
+  @override
+  String get url => throw _privateConstructorUsedError;
+  @override
+  List<String> get likedBy => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SubmissionCopyWith<_Submission> get copyWith =>

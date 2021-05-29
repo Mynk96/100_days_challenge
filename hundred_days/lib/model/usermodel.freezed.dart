@@ -21,11 +21,19 @@ class _$UserModelTearOff {
   const _$UserModelTearOff();
 
   _UserModel call(
-      {required String name, required String email, required String uid}) {
+      {required String uid,
+      required String name,
+      required String email,
+      List<String>? participatedChallenges,
+      List<String>? submissionIds,
+      Map<String, LadderInfo>? laddersState}) {
     return _UserModel(
+      uid: uid,
       name: name,
       email: email,
-      uid: uid,
+      participatedChallenges: participatedChallenges,
+      submissionIds: submissionIds,
+      laddersState: laddersState,
     );
   }
 
@@ -39,9 +47,14 @@ const $UserModel = _$UserModelTearOff();
 
 /// @nodoc
 mixin _$UserModel {
+  String get uid => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get uid => throw _privateConstructorUsedError;
+  List<String>? get participatedChallenges =>
+      throw _privateConstructorUsedError;
+  List<String>? get submissionIds => throw _privateConstructorUsedError;
+  Map<String, LadderInfo>? get laddersState =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +66,13 @@ mixin _$UserModel {
 abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res>;
-  $Res call({String name, String email, String uid});
+  $Res call(
+      {String uid,
+      String name,
+      String email,
+      List<String>? participatedChallenges,
+      List<String>? submissionIds,
+      Map<String, LadderInfo>? laddersState});
 }
 
 /// @nodoc
@@ -66,11 +85,18 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
-    Object? uid = freezed,
+    Object? participatedChallenges = freezed,
+    Object? submissionIds = freezed,
+    Object? laddersState = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -79,10 +105,18 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
+      participatedChallenges: participatedChallenges == freezed
+          ? _value.participatedChallenges
+          : participatedChallenges // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      submissionIds: submissionIds == freezed
+          ? _value.submissionIds
+          : submissionIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      laddersState: laddersState == freezed
+          ? _value.laddersState
+          : laddersState // ignore: cast_nullable_to_non_nullable
+              as Map<String, LadderInfo>?,
     ));
   }
 }
@@ -93,7 +127,13 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
           _UserModel value, $Res Function(_UserModel) then) =
       __$UserModelCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String email, String uid});
+  $Res call(
+      {String uid,
+      String name,
+      String email,
+      List<String>? participatedChallenges,
+      List<String>? submissionIds,
+      Map<String, LadderInfo>? laddersState});
 }
 
 /// @nodoc
@@ -107,11 +147,18 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
-    Object? uid = freezed,
+    Object? participatedChallenges = freezed,
+    Object? submissionIds = freezed,
+    Object? laddersState = freezed,
   }) {
     return _then(_UserModel(
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -120,10 +167,18 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
+      participatedChallenges: participatedChallenges == freezed
+          ? _value.participatedChallenges
+          : participatedChallenges // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      submissionIds: submissionIds == freezed
+          ? _value.submissionIds
+          : submissionIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      laddersState: laddersState == freezed
+          ? _value.laddersState
+          : laddersState // ignore: cast_nullable_to_non_nullable
+              as Map<String, LadderInfo>?,
     ));
   }
 }
@@ -132,41 +187,64 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserModel implements _UserModel {
   const _$_UserModel(
-      {required this.name, required this.email, required this.uid});
+      {required this.uid,
+      required this.name,
+      required this.email,
+      this.participatedChallenges,
+      this.submissionIds,
+      this.laddersState});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$_$_UserModelFromJson(json);
 
   @override
+  final String uid;
+  @override
   final String name;
   @override
   final String email;
   @override
-  final String uid;
+  final List<String>? participatedChallenges;
+  @override
+  final List<String>? submissionIds;
+  @override
+  final Map<String, LadderInfo>? laddersState;
 
   @override
   String toString() {
-    return 'UserModel(name: $name, email: $email, uid: $uid)';
+    return 'UserModel(uid: $uid, name: $name, email: $email, participatedChallenges: $participatedChallenges, submissionIds: $submissionIds, laddersState: $laddersState)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _UserModel &&
+            (identical(other.uid, uid) ||
+                const DeepCollectionEquality().equals(other.uid, uid)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.uid, uid) ||
-                const DeepCollectionEquality().equals(other.uid, uid)));
+            (identical(other.participatedChallenges, participatedChallenges) ||
+                const DeepCollectionEquality().equals(
+                    other.participatedChallenges, participatedChallenges)) &&
+            (identical(other.submissionIds, submissionIds) ||
+                const DeepCollectionEquality()
+                    .equals(other.submissionIds, submissionIds)) &&
+            (identical(other.laddersState, laddersState) ||
+                const DeepCollectionEquality()
+                    .equals(other.laddersState, laddersState)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(uid) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(uid);
+      const DeepCollectionEquality().hash(participatedChallenges) ^
+      const DeepCollectionEquality().hash(submissionIds) ^
+      const DeepCollectionEquality().hash(laddersState);
 
   @JsonKey(ignore: true)
   @override
@@ -181,19 +259,30 @@ class _$_UserModel implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {required String name,
+      {required String uid,
+      required String name,
       required String email,
-      required String uid}) = _$_UserModel;
+      List<String>? participatedChallenges,
+      List<String>? submissionIds,
+      Map<String, LadderInfo>? laddersState}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
 
   @override
+  String get uid => throw _privateConstructorUsedError;
+  @override
   String get name => throw _privateConstructorUsedError;
   @override
   String get email => throw _privateConstructorUsedError;
   @override
-  String get uid => throw _privateConstructorUsedError;
+  List<String>? get participatedChallenges =>
+      throw _privateConstructorUsedError;
+  @override
+  List<String>? get submissionIds => throw _privateConstructorUsedError;
+  @override
+  Map<String, LadderInfo>? get laddersState =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

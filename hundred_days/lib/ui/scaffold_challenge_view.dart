@@ -9,7 +9,7 @@ class ScaffoldChallengeView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Challenge View'),
       ),
-      body: ChallengeView(challengeId:args['challengeId']),
+      body: ChallengeView(challenge:args['challenge'],),
     );
   }
   
